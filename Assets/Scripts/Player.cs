@@ -24,6 +24,14 @@ public class Player : MonoBehaviour
         //move the player towards the mouse according to given speed
         var target = Vector3.MoveTowards(transform.position, worldPos, speed * Time.fixedDeltaTime);
         
-        rb.MovePosition(target);
+        var targetViewportPos = Camera.main.WorldToViewportPoint(target);
+        if (targetViewportPos.x < 0.5f)
+        {
+            rb.velocity = Vector2.zero;
+        }
+        else
+        {
+            rb.MovePosition(target);
+        }
     }
 }
